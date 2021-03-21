@@ -4,7 +4,7 @@ const electron = require('electron');
 //const isDevelopment = process.mainModule.filename.indexOf('app.asar') === -1;
 
 import Vue from 'vue'
-
+import VueI18n from 'vue-i18n'
 import App from './App.vue'
 import vuetify from '@/plugins/vuetify';
 import VueRouter from 'vue-router'
@@ -51,9 +51,25 @@ require("./ee09/jsonDb.config")
  */
 Vue.prototype.$releaseUpdater = Vue.observable(window.$releaseUpdater);
 
-Vue.config.productionTip = false
-Vue.use(VueRouter)
+Vue.config.productionTip = false;
+Vue.use(VueRouter);
+
+
+//traductions et textes d'interface
+window.$db.settings.currentLanguage="fr";
+Vue.use(VueI18n);
+let i18n = new VueI18n({
+    locale: window.$db.settings.currentLanguage.code, // set locale
+    messages:require("./plugins/texts.json"), // set locale messages
+});
+window.$db.settings.on("change-current-language",function(){
+    i18n.locale = window.$db.settings.currentLanguage.code;
+})
+
+
+
 new Vue({
+    i18n ,
     router,
     vuetify,
     render: h => h(App)

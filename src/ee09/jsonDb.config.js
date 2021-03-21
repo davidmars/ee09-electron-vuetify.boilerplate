@@ -5,6 +5,8 @@ import DbUiElectron from "@/ee09/json-db-ui/DbUiElectron";
 //////Exemple de modèle personnalisé///////////////////
 import Video from "@/models/Video";
 import VideoEdit from "@/models/video-edit";
+import PageSimple from "@/models/Video";
+import PageSimpleEdit from "@/models/page-simple-edit";
 //////////////////////////////////////////////////////
 
 
@@ -35,6 +37,20 @@ let mVideo=window.$db.settings.addModelType(
 mVideo.order=1;
 //composant d'édition
 Vue.component('video-edit',VideoEdit);
+
+
+let mPageSimple=window.$db.settings.addModelType(
+    "pagesimple"
+    ,"Page simple"
+    ,"mdi-text-box"
+    ,function(){
+        return new PageSimple();
+    }
+);
+mPageSimple.order=2;
+mPageSimple.labelPlural="Pages simples";
+//composant d'édition
+Vue.component('pagesimple-edit',PageSimpleEdit);
 //////////////////////////////////////////////////////
 
 
