@@ -5,7 +5,7 @@ import DbUiElectron from "@/ee09/json-db-ui/DbUiElectron";
 //////Exemple de modèle personnalisé///////////////////
 import Video from "@/models/Video";
 import VideoEdit from "@/models/video-edit";
-import PageSimple from "@/models/Video";
+import PageSimple from "@/models/PageSimple";
 import PageSimpleEdit from "@/models/page-simple-edit";
 //////////////////////////////////////////////////////
 
