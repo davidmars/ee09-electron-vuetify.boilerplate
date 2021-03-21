@@ -1,42 +1,19 @@
 <template>
   <v-app>
-    <v-container>
+    <v-container v-if="ready">
       <h1>Hello world</h1>
       <v-divider></v-divider>
       <v-row class="my-5">
         <v-col lg="4">
-          <v-card>
-            <v-card-title>
-              EE09 Admin
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              L'admin EE09 permet de gérer des enregistrements dans une database locale JSON
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn text @click="$dbUi.displayRecords('video')">
-                <v-icon left>{{$db.settings.getModelType('video').icon}}</v-icon>
-                Vidéos ({{$db.getListType('video').length}})
-              </v-btn>
-
-              <v-btn text @click="$dbUi.displayRecords('file')">
-                <v-icon left>{{$db.settings.getModelType('file').icon}}</v-icon>
-                Fichiers ({{$db.getListType('file').length}})
-              </v-btn>
-
-              <v-btn icon @click="$dbUi.displaySettings(true)">
-                <v-icon>mdi-cog</v-icon>
-              </v-btn>
-
-            </v-card-actions>
-          </v-card>
+          <admin-access/>
+        </v-col>
+        <v-col lg="4">
+          <choose-language/>
         </v-col>
       </v-row>
     </v-container>
 
+    <!-- l'admin qui ne s'affiche que si on lui demande -->
     <admin-dialog/>
 
   </v-app>
@@ -44,15 +21,24 @@
 
 <script>
 import AdminDialog from "./ee09/json-db-ui/admin-dialog"
+import AdminAccess from "@/components/admin-access";
+import ChooseLanguage from "@/components/choose-language";
 export default {
   name: 'App',
   components: {
+    ChooseLanguage,
+    AdminAccess,
     AdminDialog
   },
   data: () => ({
+    ready:false
   }),
   mounted() {
-    document.title="Youpi !"
+    let me=this;
+    document.title="Youpi !";
+        setTimeout(function(){
+          me.ready=true
+        },1000)
   },
   watch: {
     '$route' (to, from) {
