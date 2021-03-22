@@ -1,33 +1,45 @@
 <template>
   <v-app>
-    <v-container v-if="ready">
-      <h1>Hello world</h1>
-      <v-divider></v-divider>
-      <v-row class="my-5">
-        <v-col lg="4">
-          <admin-access/>
-        </v-col>
-        <v-col lg="4">
-          <choose-language/>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-app-bar
+        app
+        fixed
+        color="white"
+        elevate-on-scroll
+    >
+      <v-toolbar-title>Title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text to="/">Home</v-btn>
+      <v-btn text to="/videos">Vidéos</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid v-if="ready" class="pt-10">
+        <router-view/>
+      </v-container>
+    </v-main>
 
     <!-- l'admin qui ne s'affiche que si on lui demande -->
     <admin-dialog/>
 
+    <v-footer app>
+      <v-spacer></v-spacer>
+      <span class="caption">{{$db.utils.date.now("yyyy")}}</span>
+    </v-footer>
+
   </v-app>
+
+
 </template>
 
 <script>
 import AdminDialog from "./ee09/json-db-ui/admin-dialog"
-import AdminAccess from "@/components/admin-access";
-import ChooseLanguage from "@/components/choose-language";
 export default {
   name: 'App',
   components: {
-    ChooseLanguage,
-    AdminAccess,
     AdminDialog
   },
   data: () => ({
@@ -43,6 +55,11 @@ export default {
   watch: {
     '$route' (to, from) {
       console.log("change route",from,to);
+      switch (to.name){
+        case "video":
+          this.$layout.currentPage=this.$db.getByUid(to.params.uid)
+          break;
+      }
     }
   }
 };
