@@ -14,6 +14,10 @@
         label="Vidéo"
         :field="record.video"
     />
+    <image-field
+      label="Miniature"
+      :field="recordObject.thumbnail"
+    />
 
     <code-preview
         title="Données"
@@ -27,10 +31,11 @@
 import TranslatedTextField from "@/ee09/json-db-ui/fields/translated-text-field";
 import FieldVideo from "@/ee09/json-db-ui/fields/field-video";
 import CodePreview from "@/ee09/json-db-ui/code-preview";
+import ImageField from "@/ee09/json-db-ui/fields/image-field";
 
 export default {
   name: "video-edit",
-  components: {CodePreview, FieldVideo, TranslatedTextField},
+  components: {ImageField, CodePreview, FieldVideo, TranslatedTextField},
 
   props:{
     record:{
