@@ -8,7 +8,7 @@
           :key="vdo.uid">
       <v-card :to="`/video/${vdo.uid}`">
         <v-img
-            :src="vdo.thumbnail.href"
+            :src="vdo.thumbnail.resize().inside(400,400).jpg(80).href()"
             height="200px"
         ></v-img>
         <v-card-title>

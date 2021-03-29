@@ -2,6 +2,7 @@ import DbRecord from "ee09/src/ee09/json-db/records/DbRecord";
 import TranslatedField from "ee09/src/ee09/json-db/fields/TranslatedField";
 import VideoField from "ee09/src/ee09/json-db/fields/VideoField";
 import ImageField from "ee09/src/ee09/json-db/fields/ImageField";
+import ImageFactoryUrlNode from "ee09/src/ee09/json-db/images/ImageFactoryUrl";
 
 export default class Video extends DbRecord{
     constructor() {
@@ -22,7 +23,11 @@ export default class Video extends DbRecord{
          * Miniature image
          * @type {ImageField}
          */
-        this.thumbnail=new ImageField();
+        this.thumbnail=new ImageField(
+            [
+                new ImageFactoryUrlNode(null).inside(400,400).jpg(80)
+            ]
+        );
 
 
     }
